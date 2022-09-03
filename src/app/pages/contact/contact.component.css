@@ -1,0 +1,17 @@
+.form-group > label.error {
+    display: block !important;
+    text-transform: none;
+}
+
+.form-group input.valid ~ label.error,
+.form-group input[type="text"] ~ label.error,
+.form-group input[type="email"] ~ label.error,
+.form-group input[type="number"] ~ label.error,
+.form-group select ~ label.error { display: none !important; }
+
+.calories-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

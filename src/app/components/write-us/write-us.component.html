@@ -1,0 +1,121 @@
+<div class="section bg-transparent">
+    <div class="container">
+
+        <div class="row gutter-50">
+            <div class="col-lg-6">
+                <img src="assets/demos/kindergarten/images/contact.svg" alt="Image">
+                <div class="row justify-content-between mt-5">
+                    <div class="col d-flex">
+                        <i class="h6 icon-line-map-pin"></i>:
+                        <div class="fw-medium ms-3 font-primary h5 lh-sm">
+                            <a class="text-dark h-text-color" href="https://map.google.com" target="_blank">
+                                795 Folsom Ave,<br>Suite 600<br>
+                                San Francisco, <br>CA 94107<br>
+                            </a>
+                            <div class="mt-3">
+                                <a href="https://facebook.com/semicolonweb" class="social-icon si-small border-default rounded-circle si-facebook" title="Facebook" target="_blank">
+                                    <i class="icon-facebook"></i>
+                                    <i class="icon-facebook"></i>
+                                </a>
+
+                                <a href="https://instagram.com/semicolonweb" class="social-icon si-small border-default rounded-circle si-instagram" title="instagram" target="_blank">
+                                    <i class="icon-instagram"></i>
+                                    <i class="icon-instagram"></i>
+                                </a>
+
+                                <a href="https://youtube.com/__semicolonweb" class="social-icon si-small border-default rounded-circle si-google" title="google" target="_blank">
+                                    <i class="icon-google"></i>
+                                    <i class="icon-google"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-lg-auto">
+                        <div class="mb-2 font-primary h5"><i class="h6 icon-line-phone-call me-2">:</i> <a class="text-dark h-text-color" href="tel:08547632521">+(0) 8547 632521</a></div>
+                        <div class="mb-2 font-primary h5"><i class="h6 icon-whatsapp me-2">:</i> <a class="text-dark h-text-color" href="https://wa.me/01147521433">+(0) 11 4752 1433</a></div>
+                        <div class="mb-2 font-primary h5"><i class="h6 icon-line-mail me-2">:</i> <a class="text-dark h-text-color" href="mailto:noreply@canvas.com">info@canvas.com</a></div>
+                        <div class="font-primary h5"><i class="h6 icon-line-link me-2">:</i> <a class="text-dark h-text-color" href="#">canvaskindergarten.com</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="color display-4 mb-3 fw-bold">Come and visit us.</h2>
+                <p>Tell us a little bit about your family to get started. Come learn about the Scole experience!</p>
+
+                <div class="form-widget">
+
+                <div class="form-result"></div>
+
+                <form class="mb-0" id="template-contactform" name="template-contactform" action="include/form.php" method="post">
+
+                    <div class="form-process">
+                        <div class="css3-spinner">
+                            <div class="css3-spinner-scaler"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-4">
+                            <input type="text" id="kindergarten-contactform-first-name" name="kindergarten-contactform-first-name" value="" placeholder="First Name" class="form-control required" />
+                        </div>
+
+                        <div class="col-md-6 form-group mb-4">
+                            <input type="text" id="kindergarten-contactform-last-name" name="kindergarten-contactform-last-name" value="" placeholder="Last Name" class="form-control required" />
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-12 form-group mb-4">
+                            <input type="email" id="kindergarten-contactform-email" name="kindergarten-contactform-email" value="" placeholder="Email" class="required email form-control" />
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-md-6 form-group mb-4">
+                            <input type="text" id="kindergarten-contactform-phone" name="kindergarten-contactform-phone" value="" placeholder="Phone" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6 form-group mb-4">
+                            <select id="kindergarten-contactform-subject" name="kindergarten-contactform-subject" class="form-select">
+                                <option value="" disabled selected>Select Program</option>
+                                <option value="Toddler">Toddler</option>
+                                <option value="Pre-School">Pre-School</option>
+                                <option value="Kindergarten">Kindergarten</option>
+                                <option value="Pre-Kindergarten">Pre-Kindergarten</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-md-6 form-group mb-4">
+                            <input type="text" class="form-control component-flatpickr" name="kindergarten-contactform-date" placeholder="Date - Time" value="" data-time="true" data-dateFormat="d/m/yy - H:i">
+                        </div>
+
+                        <div class="col-md-6 form-group mb-4">
+                            <input type="text" id="kindergarten-contactform-location" name="kindergarten-contactform-location" value="" placeholder="Location" class="required form-control" />
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-12 form-group mb-4">
+                            <textarea class="required form-control py-2" id="kindergarten-contactform-message" placeholder="Write your Message" name="kindergarten-contactform-message" rows="5" cols="30"></textarea>
+                        </div>
+
+                        <div class="col-12 form-group d-none">
+                            <input type="text" id="kindergarten-contactform-botcheck" name="kindergarten-contactform-botcheck" value="" class="form-control" />
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <button class="btn text-white bg-color rounded-1 py-3 px-5 fw-medium float-end" type="submit" id="kindergarten-contactform-submit" name="kindergarten-contactform-submit" value="submit">Send Message <i class="icon-line-arrow-right position-relative" style="top: 2px"></i></button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="prefix" value="kindergarten-contactform-">
+
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,13 +1,119 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <title>CEPPEKetdivi</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+	<link rel="manifest" href="assets/site.webmanifest">
+
+	<!-- Stylesheets
+	============================================= -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="assets/style.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/swiper.css" type="text/css" />
+
+	<link rel="stylesheet" href="assets/css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/magnific-popup.css" type="text/css" />
+
+	<!-- Date & Time Picker CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+	<!-- Kindergarten Demo Specific Stylesheet -->
+	<link rel="stylesheet" href="assets/demos/kindergarten/kindergarten.css" type="text/css" /> <!-- Kindergarten Custom Css -->
+	<link rel="stylesheet" href="assets/demos/kindergarten/css/fonts.css" type="text/css" /> <!-- Kindergarten Custom Fonts -->
+	<!-- / -->
+
+	<link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="assets/css/colors.php?color=6953A8" type="text/css" />
+
+	<!-- Wizard Specific Stylesheet -->
+	<link rel="stylesheet" href="assets/wizard/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/wizard/css/animate.min.css">
+    <link rel="stylesheet" href="assets/wizard/css/fontawesome-all.css">
+
+	<link rel="stylesheet" type="text/css" href="assets/wizard/css/colors/switch.css">
+    <!-- Color Alternatives -->
+    <link href="assets/wizard/css/colors/color-2.css" rel="alternate stylesheet" type="text/css" title="color-2">
+    <link href="assets/wizard/css/colors/color-3.css" rel="alternate stylesheet" type="text/css" title="color-3">
+    <link href="assets/wizard/css/colors/color-4.css" rel="alternate stylesheet" type="text/css" title="color-4">
+    <link href="assets/wizard/css/colors/color-5.css" rel="alternate stylesheet" type="text/css" title="color-5">
+
+
+	<!-- Document Title
+	============================================= -->
+	<title>CEPPE - Ketdivi</title>
+	<base href="/">
+
 </head>
-<body>
-  <app-root></app-root>
+
+<body class="stretched">
+
+	<app-root></app-root>
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-hand-up rounded-circle"></div>
+
+	<!-- JavaScripts
+	============================================= -->
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/plugins.min.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="assets/js/functions.js"></script>
+
+	<script>
+		let carousels = jQuery('#kindergarten-carousel-img, #kindergarten-carousel-text');
+		jQuery('.carousel-control-prev').on( 'click', function(){
+			carousels.carousel('prev');
+		});
+		jQuery('.carousel-control-next').on( 'click', function(){
+			carousels.carousel('next');
+		});
+
+		jQuery(function() {
+			jQuery(".component-flatpickr").flatpickr({
+				enableTime: true,
+				dateFormat: "d/m/yy - H:i",
+			});
+		});
+	</script>
+
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#profile-image')
+					.attr('src', e.target.result)
+					.width(150)
+					.height(200);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		};
+		$("#customFile").change(function() {
+			filename = this.files[0].name
+		});
+	</script>
+
 </body>
 </html>

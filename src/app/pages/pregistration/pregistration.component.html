@@ -1,0 +1,897 @@
+<body class="boxed-version" *ngIf="!thank">
+
+   
+    <div class="clearfix"></div>
+
+
+    <div class="wrapper wizard d-flex clearfix multisteps-form position-relative">
+        <div class="steps order-2 position-relative w-25">
+            <div class="multisteps-form__progress">
+                <span class="multisteps-form__progress-btn js-active" title="Identité"><i class="fa  fa-id-card-o"></i><span>Identité</span></span>
+                <span class="multisteps-form__progress-btn" title="Fraterie"><i class="fa fa-users"></i><span>Fraterie</span></span>
+                <span class="multisteps-form__progress-btn" title="Santé"><i class="fa fa-heartbeat"></i><span>Santé</span></span>
+                <span class="multisteps-form__progress-btn" title="Cursus Scolaire"><i class="fa fa-archive"></i><span>Cursus Scolaire</span></span>
+                <span class="multisteps-form__progress-btn" title="Responsable"><i class="far fa-user"></i><span>Responsable </span></span>
+            </div>
+        </div>
+        <form class="multisteps-form__form w-75 order-1" action="#" id="wizard">
+            <div class="form-area position-relative">
+                <form [formGroup]="step1" (ngSubmit)="onStep1()">
+                    <!-- div 1 -->
+                    <div class="multisteps-form__panel js-active" data-animation="slideHorz">
+                        <div class="wizard-forms">
+                            <div class="inner pb-100 clearfix">
+                                <div class="wizard-title text-center">
+                                    <h3>Veuillez, renseigner les informations liées à l'identité de votre enfant</h3>
+                                </div>
+                                <div class="wizard-photo-area">
+                                    <div class="wizard-photo-upload position-relative">
+                                        <label for="child_image">Téléverser une photo</label>
+                                        <input formControlName="child_image"
+                                               class="form-control required"
+                                                name="child_image"
+                                                (change)="upload($any($event.target).files)"
+
+                                        [ngClass]="{ 'is-invalid': submitted && f['child_image'].errors }" 
+                                        id="child_image" type='file' onchange="readURL(this);" style="display: none;">
+                                        <div *ngIf="submitted && f['child_image'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['child_image'].errors['required']">la photo d'identité est requise *</div>
+                                          </div>
+                                        <div class="display-img text-center">
+                                            <img id="profile-image" src="assets/wizard/img/pf1.png" alt="your image" />
+                                        </div>
+                                    </div>
+                                    <div class="photo-upload-text">Photo d'identité de l'enfant
+                                    </div>
+                                </div>
+                                <div class="wizard-form-field mb-85">
+                                    <div class="wizard-form-input">
+                                        <label>Nom</label>
+                                        <input formControlName="last_name" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['last_name'].errors }" 
+                                        type="text" class="form-control required" name="last_name" required>
+                                        <div *ngIf="submitted && f['last_name'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['last_name'].errors['required']">le nom est requis *</div>
+                                          </div>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Prénom</label>
+                                        <input formControlName="first_name" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['first_name'].errors }" 
+                                        type="text" class="form-control required" name="first_name" required>
+                                        <div *ngIf="submitted && f['first_name'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['first_name'].errors['required']">le prénom est requis *</div>
+                                          </div>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Date De naissance</label>
+                                        <input  formControlName="birthday" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['birthday'].errors }" 
+                                        type="date" class="form-control required" name="birthday" required>
+                                        <div *ngIf="submitted && f['birthday'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['birthday'].errors['required']">la date de naissance est requis *</div>
+                                          </div>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Lieu De Naissance</label>
+                                        <input formControlName="birthplace" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['birthplace'].errors }" 
+                                        type="text" class="form-control required" name="birthplace" required>
+                                        <div *ngIf="submitted && f['birthplace'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['birthplace'].errors['required']">le lieu de naissance est requis *</div>
+                                          </div>
+                                    </div>
+
+                                    <div class="wizard-form-input select-option-area">
+                                        <label>Niveau Actuel</label>
+                                        <label *ngIf="submitted && f['level'].errors" class="error"><em style="color: red; font-size: 13px;">le niveau actuel est requis *</em></label>
+                                        <select name="level" formControlName="level">
+                                            <option *ngFor="let section of sections" [ngValue]="section.id">
+                                                {{section.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                
+                                    <div class="wizard-form-input">
+                                        <label>Sexe?</label>
+                                        <label *ngIf="submitted && f['gender'].errors" class="error"><em style="color: red; font-size: 13px;">veuillez spécifier le genre de votre enfant s'il vous plâit *</em></label>
+                                        <div class="wizard-checked">
+                                            <label class="checkbox-circle">
+                                                <input type="radio" checked="checked" formControlName="gender" value="Fille">
+                                                <span class="checkmark"></span>
+                                                Fille
+                                            </label>
+                                        </div>
+                                        <div class="wizard-checked">
+                                            <label class="checkbox-circle">
+                                                <input type="radio" formControlName="gender" value="Garçon">
+                                                <span class="checkmark"></span>
+                                                Garçon
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Info sur le prère de l'enfant -->
+                                    
+                                    <div class="wizard-form-input mb-60 mt-60">
+                                        <div class="line"></div>
+                                    </div>
+                
+                                    <div class="wizard-form-input">
+                                        <label>Nom & Prénom du père</label>
+                                        <input formControlName="father_name" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['father_name'].errors }" 
+                                        type="text" class="form-control required" name="father_name" required>
+                                        <div *ngIf="submitted && f['father_name'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['father_name'].errors['required']">le nom du père est requis *</div>
+                                          </div>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Profession Du Père</label>
+                                        <input formControlName="father_job" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['father_job'].errors }" 
+                                        type="text" class="form-control required" name="father_job" required>
+                                        <div *ngIf="submitted && f['father_job'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['father_job'].errors['required']">la profession du père est requise *</div>
+                                          </div>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Nationnalité Du Père</label>
+                                        <input formControlName="father_nationality" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['father_nationality'].errors }" 
+                                        type="text" class="form-control required" name="father_nationality" required>
+                                        <div *ngIf="submitted && f['father_nationality'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['father_nationality'].errors['required']">la nationnalité du père est requise *</div>
+                                          </div>
+                                    </div>
+
+                                    <!-- info sur la mère de l'enfant -->
+                                    <div class="wizard-form-input mb-60 mt-60">
+                                        <div class="line"></div>
+                                    </div>
+                
+                                    <div class="wizard-form-input">
+                                        <label>Nom & Prénom De La Mère</label>
+                                        <input formControlName="mother_name" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['mother_name'].errors }" 
+                                        type="text" class="form-control required" name="mother_name" required>
+                                        <div *ngIf="submitted && f['mother_name'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['mother_name'].errors['required']">le nom de la mère est requis *</div>
+                                          </div>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Profession De La Mère</label>
+                                        <input formControlName="mother_job" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['mother_job'].errors }" 
+                                        type="text" class="form-control required" name="mother_job" required>
+                                        <div *ngIf="submitted && f['mother_job'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['mother_job'].errors['required']">la profession de la mère est requise *</div>
+                                          </div>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Nationnalité De La Mère</label>
+                                        <input formControlName="mother_nationality" 
+                                        [ngClass]="{ 'is-invalid': submitted && f['mother_nationality'].errors }" 
+                                        type="text" class="form-control required" name="mother_nationality" required>
+                                        <div *ngIf="submitted && f['mother_nationality'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['mother_nationality'].errors['required']">la nationnalité de la mère est requise *</div>
+                                          </div>
+                                    </div>
+
+                                    <div class="wizard-form-input mb-60 mt-60">
+                                        <div class="line"></div>
+                                    </div>
+
+                                    <div class="wizard-document-upload pb-200">
+                                        <span class="wizard-sub-text">Téléverser la copie d'acte de naissance</span>
+                                        <label *ngIf="submitted && f['child_paper'].errors" class="error"><em style="color: red; font-size: 13px;">la copie de l'extrait est requise *</em></label>
+                                        <div class="custom-file position-relative">
+                                            <input 
+                                                type="file"
+                                                name="child_paper"
+                                                formControlName="child_paper"
+                                                (change)="paperUpload($any($event.target).files)"
+                                                [ngClass]="{ 'is-invalid': submitted && f['child_paper'].errors }"  
+                                                class="custom-file-input d-none form-control required" id="child_paper"
+                                            >
+                                            <div *ngIf="submitted && f['child_paper'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['child_paper'].errors['required']">une copie de l'acte de naissance est requise *</div>
+                                              </div>
+                                            <label class="custom-file-label" for="child_paper">jpg or .pdf should  be more than 500KB or 300PI</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="wizard-form-input mb-60 mt-60">
+                                        <div class="line"></div>
+                                    </div>
+                                
+                                    <div class="form-field-text">Bien! Si vous avez renseigné correctement
+                                        tous les champs précédent, nous pouvons passer à l'étape suivante.
+                                    </div>
+                                </div>
+                                <div class="wizard-v3-progress">
+                                    <span>1 sur 6 étapes</span>
+                                    <h3>0% effectué</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 0%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.inner -->
+                            <div class="vector-img-one">
+                                <img src="assets/wizard/img/vb1.png" alt="">
+                            </div>
+                            <div class="actions">
+                                <ul>
+                                    <li><span (click)="onStep1()" [className]="status ? 'js-btn-next' : ''" title="NEXT">SUIVANTE <i class="fa fa-arrow-right"></i></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="step2" (ngSubmit)="onStep2()">
+                    <!-- div 2 -->
+                    <div class="multisteps-form__panel" data-animation="slideHorz">
+                        <div class="wizard-forms section-padding">
+                            <div class="inner pb-100 clearfix">
+                                <div class="wizard-title text-center">
+                                    <h3>Veuillez à présent renseigner les champs dédiés à la fraterie de l'enfant</h3>
+                                    <p class="text-center"> <strong style="color: red;"> Vous pouvez passer cette étapte si votre enfant n'a pas encore de frère et soeur </strong> </p>
+                                </div>
+                                
+                                <div class="wizard-note-subject pb-100">
+                                    <div class="wizard-form-input select-option-area">
+                                        <label>Nombre De Frères</label>
+                                        <select formControlName="brother_count">
+                                            <option [ngValue]="1">1</option>
+                                            <option [ngValue]="2">2</option>
+                                            <option [ngValue]="3">3</option>
+                                            <option [ngValue]="4">4</option>
+                                            <option [ngValue]="5">5</option>
+                                            <option [ngValue]="6">6</option>
+                                            <option [ngValue]="7">7</option>
+                                            <option [ngValue]="8">8</option>
+                                            <option [ngValue]="9">9</option>
+                                            <option [ngValue]="10">10 ou +</option>
+                                        </select>
+                                    </div>
+                                    <div class="wizard-form-input select-option-area">
+                                        <label>Nombre De Soeurs</label>
+                                        <select formControlName="sister_count">
+                                            <option [ngValue]="1">1</option>
+                                            <option [ngValue]="2">2</option>
+                                            <option [ngValue]="3">3</option>
+                                            <option [ngValue]="4">4</option>
+                                            <option [ngValue]="5">5</option>
+                                            <option [ngValue]="6">6</option>
+                                            <option [ngValue]="7">7</option>
+                                            <option [ngValue]="8">8</option>
+                                            <option [ngValue]="9">9</option>
+                                            <option [ngValue]="10">10 ou +</option>
+                                        </select>
+                                    </div>
+                                    <div class="wizard-form-input select-option-area">
+                                        <label>Place Dans La Fraterie</label>
+                                        <select formControlName="child_position">
+                                            <option [ngValue]="1">1ère</option>
+                                            <option [ngValue]="2">2e</option>
+                                            <option [ngValue]="3">3e</option>
+                                            <option [ngValue]="4">4e</option>
+                                            <option [ngValue]="5">5e</option>
+                                            <option [ngValue]="6">6e</option>
+                                            <option [ngValue]="7">7e</option>
+                                            <option [ngValue]="8">8e</option>
+                                            <option [ngValue]="9">9e</option>
+                                            <option>10e ou +</option>
+                                        </select>
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Autres Enfants Dans La Famille</label>
+                                        <textarea formControlName="others_children"></textarea>
+                                    </div>
+                                </div>
+                                <div class="wizard-v3-progress">
+                                    <span>2 sur 6 étapes</span>
+                                    <h3>38% effectués</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 38%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.inner -->
+                            <div class="vector-img-one">
+                                <img src="assets/wizard/img/vb2.png" alt="">
+                            </div>
+                            <div class="actions">
+                                <ul>
+                                    <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> RETOUR </span></li>
+                                    <li><span (click)="onStep2()" [className]="status ? 'js-btn-next' : ''" title="NEXT">SUIVANTE <i class="fa fa-arrow-right"></i></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="step3" (ngSubmit)="onStep3()">
+                    <!-- div 3 -->
+                    <div class="multisteps-form__panel" data-animation="slideHorz">
+                        <div class="wizard-forms">
+                            <div class="inner pb-100 clearfix">
+                                <div class="wizard-title text-center">
+                                    <h3>Ensuite, entrer les informations concernant la santé de l'enfant</h3>
+                                </div>
+                                <div class="wizard-duration mb-60">
+                                    <span class="wizard-sub-text">Caractéristiques Médicales</span>
+                                    <div class="wizard-form-field mb-85">
+                                        <div class="wizard-form-input">
+                                            <label>Groupe Réhus?</label>
+                                            <label *ngIf="submitted3 && f3['blood_type'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="blood_type" name="blood_type" value="A"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['blood_type'].errors }">
+                                                    <div *ngIf="submitted3 && f3['blood_type'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['blood_type'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    A
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="blood_type" name="blood_type" name="blood_type" value="B"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['blood_type'].errors }">
+                                                    <div *ngIf="submitted3 && f3['blood_type'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['blood_type'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    B
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required"  formControlName="blood_type" name="blood_type" name="blood_type" value="AB"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['blood_type'].errors }">
+                                                    <div *ngIf="submitted3 && f3['blood_type'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['blood_type'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    AB
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required"  formControlName="blood_type" name="blood_type" name="blood_type" value="O"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['blood_type'].errors }">
+                                                    <div *ngIf="submitted3 && f3['blood_type'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['blood_type'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    O
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Transfusion sanguine anterieur?</label>
+                                            <label *ngIf="submitted3 && f3['transfusion'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" checked="checked" class="form-control required"  formControlName="transfusion" name="transfusion" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['transfusion'].errors }">
+                                                    <div *ngIf="submitted3 && f3['transfusion'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['transfusion'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required"  formControlName="transfusion" name="transfusion" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['transfusion'].errors }">
+                                                    <div *ngIf="submitted3 && f3['transfusion'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['transfusion'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Poid en kg</label>
+                                            <input formControlName="weight" 
+                                            [ngClass]="{ 'is-invalid': submitted3 && f3['weight'].errors }" 
+                                            type="number" class="form-control required" name="weight" required>
+                                            <div *ngIf="submitted3 && f3['weight'].errors" class="invalid-feedback">
+                                                <div *ngIf="f3['weight'].errors['required']">le poid est requis *</div>
+                                              </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Taille en m</label>
+                                            <input formControlName="height" 
+                                            [ngClass]="{ 'is-invalid': submitted3 && f3['height'].errors }" 
+                                            type="number" class="form-control required" name="height" required>
+                                            <div *ngIf="submitted3 && f3['height'].errors" class="invalid-feedback">
+                                                <div *ngIf="f3['height'].errors['required']">la taille est requise *</div>
+                                              </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Allergies</label>
+                                            <textarea formControlName="allergies" name="allergies" cols="65" rows="10"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wizard-duration mb-60">
+                                    <span class="wizard-sub-text">Entécédents Médicaux</span>
+                                    <div class="wizard-form-field mb-85">
+                                        <div class="wizard-form-input">
+                                            <label>Diabète?</label>
+                                            <label *ngIf="submitted3 && f3['diabeteique'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="diabeteique" name="diabeteique" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['diabeteique'].errors }">
+                                                    <div *ngIf="submitted3 && f3['diabeteique'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['diabeteique'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="diabeteique" name="diabeteique" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['diabeteique'].errors }">
+                                                    <div *ngIf="submitted3 && f3['diabeteique'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['diabeteique'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Asthme?</label>
+                                            <label *ngIf="submitted3 && f3['asthmatique'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="asthmatique" name="asthmatique" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['asthmatique'].errors }">
+                                                    <div *ngIf="submitted3 && f3['asthmatique'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['asthmatique'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="asthmatique" name="asthmatique" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['asthmatique'].errors }">
+                                                    <div *ngIf="submitted3 && f3['asthmatique'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['asthmatique'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Drépanocytose?</label>
+                                            <label *ngIf="submitted3 && f3['drepanocytaire'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="drepanocytaire" name="drepanocytaire" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['drepanocytaire'].errors }">
+                                                    <div *ngIf="submitted3 && f3['drepanocytaire'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['drepanocytaire'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="drepanocytaire" name="drepanocytaire" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['drepanocytaire'].errors }">
+                                                    <div *ngIf="submitted3 && f3['drepanocytaire'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['drepanocytaire'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Entécédent chirurgicaux?</label>
+                                            <label *ngIf="submitted3 && f3['churigies'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="churigies" name="churigies" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['churigies'].errors }">
+                                                    <div *ngIf="submitted3 && f3['churigies'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['churigies'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="churigies" name="churigies" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['churigies'].errors }">
+                                                    <div *ngIf="submitted3 && f3['churigies'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['churigies'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-form-input">
+                                            <label>Autres?</label>
+                                            <label *ngIf="submitted3 && f3['autres_maladies'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+ 
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="autres_maladies" name="autres_maladies" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['autres_maladies'].errors }">
+                                                    <div *ngIf="submitted3 && f3['autres_maladies'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['autres_maladies'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="autres_maladies" name="autres_maladies" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['autres_maladies'].errors }">
+                                                    <div *ngIf="submitted3 && f3['autres_maladies'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['autres_maladies'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wizard-form-input mb-60 mt-60">
+                                    <div class="line line2"></div>
+                                </div>
+                                <div class="wizard-duration mb-60">
+                                    <span class="wizard-sub-text">L'enfant est-il suivi par un pédiatre?</span>
+                                    <div class="wizard-form-field mb-85">
+                                        <div class="wizard-form-input">
+                                            <label *ngIf="submitted3 && f3['suivie_pediatre'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+                                            <div class="wizard-checked" (click)="yesDoctor()">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="suivie_pediatre" name="suivie_pediatre" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['suivie_pediatre'].errors }">
+                                                    <div *ngIf="submitted3 && f3['suivie_pediatre'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['suivie_pediatre'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked" (click)="noDoctor()">
+                                                <label class="checkbox-circle">
+                                                    <input type="radio" class="form-control required" formControlName="suivie_pediatre" name="suivie_pediatre" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['suivie_pediatre'].errors }">
+                                                    <div *ngIf="submitted3 && f3['suivie_pediatre'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['suivie_pediatre'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="this.doctor == true;">
+                                            <div class="wizard-form-input">
+                                                <label>Nom & Prénom Du Pédiatre</label>
+                                                <input type="text" formControlName="pediatre_name" name="pediatre_name">
+                                            </div>
+                                            <div class="wizard-form-input">
+                                                <label>Téléphone Du Pédiatre</label>
+                                                <input type="phone" formControlName="pediatre_phone" name="pediatre_phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wizard-duration mb-60">
+                                    <span class="wizard-sub-text">En cas d'urgence KETDIVI conduit les enfants à l'hopital.</span>
+                                    <div class="wizard-form-field mb-85">
+                                        <div class="wizard-form-input">
+                                            <label>Acceptez-vous qu'on le fasse pour votre enfant?</label>
+                                            <label *ngIf="submitted3 && f3['go_to_hospital'].errors" class="error"><em style="color: red; font-size: 12px;">une reponse est requise *</em></label>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle" (click)="yesHospital()">
+                                                    <input type="radio" class="form-control required" formControlName="go_to_hospital" name="go_to_hospital" value="Oui"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['go_to_hospital'].errors }">
+                                                    <div *ngIf="submitted3 && f3['go_to_hospital'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['go_to_hospital'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Oui
+                                                </label>
+                                            </div>
+                                            <div class="wizard-checked">
+                                                <label class="checkbox-circle" (click)="noHospital()">
+                                                    <input type="radio" class="form-control required" formControlName="go_to_hospital" name="go_to_hospital" value="Non"
+                                                    [ngClass]="{ 'is-invalid': submitted3 && f3['go_to_hospital'].errors }">
+                                                    <div *ngIf="submitted3 && f3['go_to_hospital'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f3['go_to_hospital'].errors['required']"> *</div>
+                                                      </div>
+                                                    <span class="checkmark"></span>
+                                                    Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <ng-container *ngIf="accept_hospital == false">
+                                            <span class="wizard-sub-text">
+                                                <h4><strong>Sinon Insérez les coordonnées de la clinique.</strong></h4>
+                                            </span>
+                                            <div class="wizard-form-input">
+                                                <label>Nom</label>
+                                                <input type="text" formControlName="clincal_name" name="clincal_name">
+                                            </div>
+                                            <div class="wizard-form-input">
+                                                <label>Quartier</label>
+                                                <input type="text" formControlName="clincal_street" name="clincal_street">
+                                            </div>
+                                            <div class="wizard-form-input">
+                                                <label>Téléphone</label>
+                                                <input type="text" formControlName="clincal_phone" name="clincal_phone">
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            
+                                <div class="wizard-form-input mb-60 mt-60">
+                                    <div class="line line2"></div>
+                                </div>
+                                <div class="wizard-document-upload pb-200">
+                                    <span class="wizard-sub-text">Téléversez la copie du carnet de vaccination de l'enfant</span>
+                                    <label *ngIf="submitted3 && f3['carnet_vaccination'].errors" class="error"><em style="color: red; font-size: 13px;">la copie du carnet de vaccination est requise *</em></label>
+
+                                    <div class="custom-file position-relative">
+                                        <input 
+                                            formControlName="carnet_vaccination" 
+                                            type="file" 
+                                            class="custom-file-input form-control d-none" 
+                                            id="carnet_vaccination"
+                                            name="carnet_vaccination"
+                                            (change)="vaccinationUpload($any($event.target).files)"
+                                        [ngClass]="{ 'is-invalid': submitted3 && f3['carnet_vaccination'].errors }">
+                                        <label class="custom-file-label" for="carnet_vaccination">.jpg ou .pdf ne doit pas dépasser 500KB ou 300PI</label>
+                                    </div>
+                                </div>
+                                <div class="wizard-v3-progress">
+                                    <span>3 sur 6 étapes</span>
+                                    <h3>59% effectués</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 59%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ./inner -->
+                            <div class="vector-img-one">
+                                <img src="assets/wizard/img/vb3.png" alt="">
+                            </div>
+                            <div class="actions">
+                                <ul>
+                                    <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> RETOUR </span></li>
+                                    <li><span (click)="onStep3()" [className]="status ? 'js-btn-next' : ''" title="NEXT">SUIVANTE <i class="fa fa-arrow-right"></i></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="step4" (ngSubmit)="onStep4()">
+                    <!-- div 4 -->
+                    <div class="multisteps-form__panel" data-animation="slideHorz">
+                        <div class="wizard-forms">
+                            <div class="inner pb-200 clearfix">
+                                <div class="wizard-title text-center">
+                                    <h3>Nous y sommes presque! Le cursus scolaire de l'enfant</h3>
+                                    <p class="text-center"> <strong style="color: red;"> Vous pouvez passer cette étapte si votre enfant n'a pas encore été à l'école </strong> </p>
+                                </div>
+                                <div class="wizard-day-item">
+                                    <span class="wizard-sub-text">Les 3 dernières années</span>
+                                    <table>
+                                        <tr>
+                                        <th>Année Scolaire</th>
+                                        <th>Etablissement</th>
+                                        <th>Classe</th>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                            <input type="text" formControlName="session1" class="form-control" name="session1">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="etablissement1" class="form-control" name="etablissement1">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="classe1" class="form-control" name="classe1">
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                            <input type="text" formControlName="session2" class="form-control" name="session2">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="etablissement2" class="form-control" name="etablissement2">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="classe2" class="form-control" name="classe2">
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                            <input type="text" formControlName="session3" class="form-control required" name="session3" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="etablissement3" class="form-control required" name="etablissement3" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="classe3" class="form-control required" name="classe3" required>
+                                        </td>
+                                        </tr>
+                                    
+                                    </table>
+                                </div>
+                            
+                                <div class="wizard-form-input mb-60 mt-60">
+                                    <div class="line line2"></div>
+                                </div>
+
+                                <div class="wizard-v3-progress">
+                                    <span>4 sur 6 étapes</span>
+                                    <h3>79% effectués</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 79%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.inner -->
+                            <div class="vector-img-one">
+                                <img src="assets/wizard/img/vb4.png" alt="">
+                            </div>
+                            <div class="actions">
+                                <ul>
+                                    <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> RETOUR </span></li>
+                                    <li><span (click)="onStep4()" [className]="status ? 'js-btn-next' : ''" title="NEXT">SUIVANTE <i class="fa fa-arrow-right"></i></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="step5" (ngSubmit)="onStep5()">
+                    <!-- div 5 -->
+                    <div class="multisteps-form__panel" data-animation="slideHorz">
+                        <div class="wizard-forms">
+                            <div class="inner pb-100">
+                                <div class="wizard-title text-center">
+                                    <h3>Maintenant, il ne reste plus qu'à identifier celui qui est responsable de l'enfant et le tout est joué !</h3>
+                                    <p class="text-center">(<strong style="color: red;">Le responsable doit impérativement vivre avec l'enfant !</strong>) </p>
+                                </div>
+                                <div class="social-media-find">
+                                    <span class="wizard-sub-text">Qui est responsable de l'enfant?</span>
+                                    <label *ngIf="submitted5 && f5['tutor_type'].errors" class="error"><em style="color: red; font-size: 13px;">veuillez indiquer le responsable de l'enfant s'il vous-plaît *</em></label>
+                                    <div class="social-find-caret">
+                                        <select formControlName="tutor_type">
+                                            <option value="père">Le père</option>
+                                            <option value="mère">La mère</option>
+                                            <option value="tuteur">Le tuteur</option>
+                                            <option value="tutrice">La tutrice</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="wizard-form-field social-media-find">
+                                        
+                                    <span class="wizard-sub-text">
+                                        <label></label>
+                                    </span>
+                                    <div class="wizard-form-input">
+                                        <label>Nom & Prénom</label>
+                                        <input formControlName="tutor_name" 
+                                        [ngClass]="{ 'is-invalid': submitted5 && f5['tutor_name'].errors }" 
+                                        type="text" class="form-control required" name="tutor_name" required>
+                                        <div *ngIf="submitted5 && f5['tutor_name'].errors" class="invalid-feedback">
+                                            <div *ngIf="f5['tutor_name'].errors['required']">le nom complet est requis *</div>
+                                        </div>                                    
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Profession</label>
+                                        <input formControlName="tutor_job" 
+                                        [ngClass]="{ 'is-invalid': submitted5 && f5['tutor_job'].errors }" 
+                                        type="text" class="form-control required" name="tutor_job" required>
+                                        <div *ngIf="submitted5 && f5['tutor_job'].errors" class="invalid-feedback">
+                                            <div *ngIf="f5['tutor_job'].errors['required']">la profession est requise *</div>
+                                        </div>                                    
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Quartier</label>
+                                        <input formControlName="tutor_street" 
+                                        [ngClass]="{ 'is-invalid': submitted5 && f5['tutor_street'].errors }" 
+                                        type="text" class="form-control required" name="tutor_street" required>
+                                        <div *ngIf="submitted5 && f5['tutor_street'].errors" class="invalid-feedback">
+                                            <div *ngIf="f5['tutor_street'].errors['required']">le quartier est requis *</div>
+                                        </div>                                    
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Téléphone</label>
+                                        <input formControlName="tutor_phone" 
+                                        [ngClass]="{ 'is-invalid': submitted5 && f5['tutor_phone'].errors }" 
+                                        type="phone" class="form-control required" name="tutor_phone" required>
+                                        <div *ngIf="submitted5 && f5['tutor_phone'].errors" class="invalid-feedback">
+                                            <div *ngIf="f5['tutor_phone'].errors['required']">le téléphone est requis *</div>
+                                        </div>                                    
+                                    </div>
+                                    <div class="wizard-form-input">
+                                        <label>Email</label>
+                                        <input formControlName="tutor_email" 
+                                        [ngClass]="{ 'is-invalid': submitted5 && f5['tutor_email'].errors }" 
+                                        type="email" class="form-control required" name="tutor_email" required>
+                                        <div *ngIf="submitted5 && f5['tutor_email'].errors" class="invalid-feedback">
+                                            <div *ngIf="f5['tutor_email'].errors['required']">le nom est requis *</div>
+                                        </div>                                    
+                                    </div>
+                                    <span class="wizard-sub-text">
+                                        <label></label>
+                                    </span>
+                                    <div class="wizard-document-upload pb-200">
+                                        <span class="wizard-sub-text">Téléversez la copie de la CNI</span>
+                                        <label *ngIf="submitted5 && f5['tutor_cni'].errors" class="error"><em style="color: red; font-size: 13px;">la copie de la CNI est requise *</em></label>
+
+                                        <div class="custom-file position-relative">
+                                            <input 
+                                            formControlName="tutor_cni" 
+                                            type="file" class="custom-file-input form-control d-none" 
+                                            id="tutor_cni"
+                                            name="tutor_cni"
+                                            (change)="cniUpload($any($event.target).files)"
+                                            [ngClass]="{ 'is-invalid': submitted5 && f5['tutor_cni'].errors }">
+                                            <label class="custom-file-label" for="tutor_cni">.jpg ou .pdf ne doit pas dépasser 500KB ou 300PI</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wizard-v3-progress">
+                                    <span>6 sur 6 étapes</span>
+                                    <h3>100% effectués</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!-- /.inner -->
+                            <div class="vector-img-one position-relative">
+                                <img src="assets/wizard/img/vb5.png" alt="">
+                            </div>
+                            <div class="actions mt-60">
+                                <ul>
+                                    <li><span class="js-btn-prev" title="BACK"><i class="fa fa-arrow-left"></i> RETOUR </span></li>
+                                    <li><button title="NEXT">SUBMIT <i class="fa fa-arrow-right"></i></button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+</body>
+
+<app-thank-you [info]="dada" *ngIf="thank"></app-thank-you>

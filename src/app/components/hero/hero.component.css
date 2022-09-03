@@ -1,0 +1,11 @@
+h1, h6, p {
+    color: #fff;
+}
+
+.color {
+    color: #7db920 !important;
+}
+
+.bg-color, .bg-color #header-wrap {
+    background-color: #7db920 !important;
+}
