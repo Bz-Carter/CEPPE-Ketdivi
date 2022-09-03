@@ -9,7 +9,7 @@ export class AboutComponent implements OnInit {
   // header variables
   title = 'A propos';
   subtitle = 'Tout Savoir A Propos De Nous';
-  image = 'assets/images/services/home-testi-bg.jpg';
+  image = 'assets/demos/kindergarten/images/about.jpg';
 
   constructor() { }
 

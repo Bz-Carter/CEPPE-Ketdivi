@@ -12,7 +12,7 @@ export class ContactComponent implements OnInit {
   // header variables
   title = 'Contacts';
   subtitle = 'Envoyez nous vos messages par courriel';
-  image = 'assets/images/services/home-testi-bg.jpg';
+  image = 'assets/demos/kindergarten/images/contact.jpg';
   
   form: FormGroup= new FormGroup({
     first_name: new FormControl(''),
